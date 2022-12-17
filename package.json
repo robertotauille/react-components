@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build && yarn build-tailwind",
+    "build-tailwind": "npx tailwindcss -o ./dist/tailwind.css --minify",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
     "prepare": "tsdx build",

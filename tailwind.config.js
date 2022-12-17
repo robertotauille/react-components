@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './stories/*'],
-  content: [],
+  mode: "jit",
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./stories/*"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms')],
+  inject: true,
+  plugins: [require("@tailwindcss/forms")],
 };

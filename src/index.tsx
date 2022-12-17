@@ -1,5 +1,3 @@
-import "../src/tailwind.css";
-
 export * from "./components/Badge/Badge";
 export * from "./components/Box/Box";
 export * from "./components/Button/Button";

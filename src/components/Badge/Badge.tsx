@@ -8,12 +8,19 @@ export interface BadgeProps {
   color?: keyof typeof ThemeColors;
   size?: "sm" | "lg";
   hasCircle?: boolean;
+  className?: string;
   ref?: Ref<HTMLSpanElement>;
 }
 
 export const Badge: FC<BadgeProps> = forwardRef<HTMLSpanElement, BadgeProps>(
   (
-    { children, color = Theme.config.color, size = "sm", hasCircle = false },
+    {
+      children,
+      color = Theme.config.color,
+      size = "sm",
+      hasCircle = false,
+      className = "",
+    },
     ref
   ) => {
     const colors = {
@@ -49,7 +56,8 @@ export const Badge: FC<BadgeProps> = forwardRef<HTMLSpanElement, BadgeProps>(
         className={classNames(
           "inline-flex items-center rounded-full",
           sizes[size],
-          colors[color]
+          colors[color],
+          className
         )}
       >
         {hasCircle && (

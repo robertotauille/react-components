@@ -4,6 +4,10 @@ import React, {
   SelectHTMLAttributes,
   ReactNode,
   forwardRef,
+  createRef,
+  MutableRefObject,
+  useEffect,
+  ChangeEvent,
 } from "react";
 
 import { Theme, ThemeColors } from "../../theme";
@@ -15,6 +19,7 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   color?: keyof typeof ThemeColors;
   error?: string;
   children?: ReactNode;
+  className?: string;
   ref?: Ref<HTMLSelectElement>;
 }
 
@@ -45,9 +50,49 @@ export const Select: FC<SelectProps> = forwardRef<
   SelectProps
 >(
   (
-    { name, label, color = Theme.config.color, error, children, ...rest },
+    {
+      name,
+      label,
+      color = Theme.config.color,
+      error,
+      children,
+      className = "",
+      onChange,
+      ...rest
+    },
     ref
   ) => {
+    const selectRef = createRef<HTMLSelectElement>() as MutableRefObject<
+      HTMLSelectElement
+    >;
+
+    const handleRef = (el: HTMLSelectElement) => {
+      if (ref) {
+        if (typeof ref === "function") {
+          ref(el);
+        } else {
+          ref.current = el;
+        }
+      }
+
+      selectRef.current = el;
+    };
+
+    const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+      onChange && onChange(e);
+
+      if (e.target.value === "") {
+        e.target.classList.add("text-gray-400");
+      } else {
+        e.target.classList.remove("text-gray-400");
+      }
+    };
+
+    useEffect(() => {
+      if (selectRef.current.value === "")
+        selectRef.current.classList.add("text-gray-400");
+    }, []);
+
     return (
       <div className="flex flex-col">
         {label && (
@@ -61,14 +106,16 @@ export const Select: FC<SelectProps> = forwardRef<
 
         <div className="relative rounded-md shadow-sm">
           <select
-            ref={ref}
+            ref={handleRef}
             id={name}
             name={name}
+            onChange={handleOnChange}
             className={classNames(
               "block w-full appearance-none border focus:outline-none shadow-sm focus:ring-1",
               "transition-all duration-150 ease-in-out",
               "px-3 py-3 rounded-md",
               colors[color],
+              className,
               error
                 ? "border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500"
                 : "border-gray-300 text-gray-900 placeholder-gray-400"

@@ -142,7 +142,7 @@ export const Confirm: FC<ConfirmProps> = ({
                     type="button"
                     colorType="outline"
                     size="xl"
-                    className="inline-flex w-full"
+                    full
                     onClick={handleCancel}
                   >
                     {labelCancel}
@@ -152,7 +152,7 @@ export const Confirm: FC<ConfirmProps> = ({
                     type="button"
                     color="red"
                     size="xl"
-                    className="inline-flex w-full"
+                    full
                     onClick={handleConfirm}
                   >
                     {labelConfirm}

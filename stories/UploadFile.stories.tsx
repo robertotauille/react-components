@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from "react";
+import React, { createRef } from "react";
 import { Meta, Story } from "@storybook/react";
 
 import { Box, UploadFile, UploadFileProps } from "../src";
@@ -28,6 +28,13 @@ const Template: Story<UploadFileProps> = args => {
   return (
     <Box className="flex flex-col gap-4">
       <UploadFile ref={ref} description="PNG ou JPG até 5MB" {...args} />
+
+      <UploadFile
+        ref={ref}
+        description="PNG ou JPG até 5MB"
+        error="Error..."
+        {...args}
+      />
     </Box>
   );
 };

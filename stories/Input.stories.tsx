@@ -34,7 +34,12 @@ const Template: Story<InputProps> = args => {
         color="blue"
         {...args}
       />
-      <Input label="Username" error="Error..." {...args} />
+      <Input
+        label="Username"
+        placeholder="Username"
+        error="Error..."
+        {...args}
+      />
 
       <Input mask="999-999-999" placeholder="Mask 999-999-999" {...args} />
     </Box>

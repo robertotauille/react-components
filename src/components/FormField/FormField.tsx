@@ -1,9 +1,12 @@
 import React, { FC, ReactNode } from "react";
 
+import { classNames } from "../../utils/miscellaneous";
+
 export interface FormFieldProps {
   name?: string;
   label?: string;
   description?: string;
+  borderLess?: boolean;
   children: ReactNode;
 }
 
@@ -11,21 +14,33 @@ export const FormField: FC<FormFieldProps> = ({
   name,
   label,
   description,
+  borderLess = false,
   children,
 }) => {
   return (
-    <div className="p-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+    <div
+      className={classNames(
+        "flex flex-col gap-2 p-4 sm:flex-row",
+        borderLess ? "" : "border-t"
+      )}
+    >
+      <label
+        htmlFor={name}
+        className={classNames(
+          "block text-sm font-medium text-gray-700",
+          "sm:flex sm:flex-col sm:flex-1"
+        )}
+      >
         {label}
 
         {description && (
-          <p className="mt-1 text-xs font-normal text-gray-400">
-            {description}
-          </p>
+          <p className="text-xs font-normal text-gray-400">{description}</p>
         )}
       </label>
 
-      <div className="h-full mt-1 sm:col-span-2 sm:mt-0">{children}</div>
+      <div className="sm:flex sm:flex-1 sm:flex-col sm:justify-center">
+        <div>{children}</div>
+      </div>
     </div>
   );
 };

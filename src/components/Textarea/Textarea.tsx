@@ -58,7 +58,10 @@ export const Textarea: FC<TextareaProps> = forwardRef<
           className={classNames(
             "block w-full appearance-none border rounded-md border-gray-300 focus:outline-none shadow-sm focus:ring-1",
             "transition-all duration-150 ease-in-out",
-            colors[color]
+            colors[color],
+            error
+              ? "border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500"
+              : "border-gray-300 text-gray-900 placeholder-gray-400"
           )}
           {...rest}
           ref={ref}

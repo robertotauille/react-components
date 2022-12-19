@@ -24,6 +24,7 @@ const Template: Story<TextareaProps> = args => {
   return (
     <Box className="flex flex-col gap-4">
       <Textarea {...args} />
+      <Textarea placeholder="Placeholder" error="Error..." {...args} />
     </Box>
   );
 };

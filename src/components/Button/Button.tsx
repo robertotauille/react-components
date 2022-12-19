@@ -18,6 +18,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   loadingText?: string;
   disabled?: boolean;
+  className?: string;
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
 }
@@ -36,6 +37,7 @@ export const Button: FC<ButtonProps> = forwardRef<
       loading,
       loadingText,
       disabled,
+      className = "",
       onClick = () => {},
       ...rest
     },
@@ -168,7 +170,8 @@ export const Button: FC<ButtonProps> = forwardRef<
           disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : "",
           loading ? "cursor-not-allowed pointer-events-none" : "",
           sizes[size],
-          colors[colorType][color]
+          colors[colorType][color],
+          className
         )}
         onClick={handleClick}
         {...rest}

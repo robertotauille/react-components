@@ -5,7 +5,8 @@ import { Theme, ThemeColors } from "../../theme";
 import { classNames } from "../../utils/miscellaneous";
 
 export interface SwitchProps {
-  enabled?: boolean;
+  name?: string;
+  defaultEnabled?: boolean;
   color?: keyof typeof ThemeColors;
   onChange?: (value: boolean) => void;
 }
@@ -56,16 +57,21 @@ const colors = {
 };
 
 export const Switch: FC<SwitchProps> = ({
-  enabled = false,
+  name,
+  defaultEnabled = false,
   color = Theme.config.color,
   onChange,
 }) => {
+  const [enabled, setEnabled] = React.useState(defaultEnabled);
+
   const handleChange = (value: boolean) => {
+    setEnabled(value);
     onChange?.(value);
   };
 
   return (
     <HLSwitch
+      name={name}
       checked={enabled}
       onChange={handleChange}
       className={classNames(

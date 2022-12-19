@@ -1,15 +1,15 @@
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
 
-import { Box, Select, SelectProps } from '../src';
+import { Box, Select, SelectProps } from "../src";
 
 const meta: Meta = {
-  title: 'Select',
+  title: "Select",
   component: Select,
   argTypes: {
     children: {
       control: {
-        type: 'text',
+        type: "text",
       },
     },
   },
@@ -21,9 +21,14 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<SelectProps> = args => {
+  const handleChange = () => {
+    console.log("maHh oe!");
+  };
+
   return (
     <Box className="flex flex-col gap-4">
-      <Select {...args}>
+      <Select onChange={handleChange} {...args}>
+        <option value="">Select...</option>
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
         <option value="3">Option 3</option>

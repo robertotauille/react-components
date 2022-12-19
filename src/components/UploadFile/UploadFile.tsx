@@ -7,17 +7,20 @@ import React, {
   useState,
   createRef,
   MutableRefObject,
+  InputHTMLAttributes,
 } from "react";
 
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 import { Theme, ThemeColors } from "../../theme";
 import { classNames, formatBytes } from "../../utils/miscellaneous";
 
-export interface UploadFileProps {
+export interface UploadFileProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   description?: string;
   color?: keyof typeof ThemeColors;
+  error?: string;
   ref?: Ref<HTMLInputElement>;
 }
 
@@ -76,7 +79,7 @@ const colors = {
 export const UploadFile: FC<UploadFileProps> = forwardRef<
   HTMLInputElement,
   UploadFileProps
->(({ name, description, color = Theme.config.color }, ref) => {
+>(({ name, description, color = Theme.config.color, error, ...rest }, ref) => {
   const [dragActive, setDragActive] = useState(false);
   const [fileDroped, setFileDroped] = useState(false);
 
@@ -163,6 +166,7 @@ export const UploadFile: FC<UploadFileProps> = forwardRef<
         type="file"
         className="sr-only"
         onChange={handleInput}
+        {...rest}
       />
 
       <div
@@ -171,10 +175,20 @@ export const UploadFile: FC<UploadFileProps> = forwardRef<
         onDragOver={handleDrag}
         onDrop={handleDrop}
         className={classNames(
-          "flex flex-col max-w-lg justify-center items-center rounded-md border-2 border-dashed p-6 transition-all duration-150 ease-in-out",
-          dragActive ? colors.border[color] : "border-gray-300"
+          "relative flex flex-col max-w-lg justify-center items-center rounded-md border-2 border-dashed p-6 transition-all duration-150 ease-in-out",
+          dragActive ? colors.border[color] : "border-gray-300",
+          error ? "border-red-500" : ""
         )}
       >
+        {error && (
+          <div className="pointer-events-none absolute inset-y-0 top-0 right-0 flex pt-2 pr-2">
+            <ExclamationCircleIcon
+              className="h-5 w-5 text-red-500"
+              aria-hidden="true"
+            />
+          </div>
+        )}
+
         {fileDroped ? (
           <div className="flex flex-1 w-full">
             <div className="flex flex-1 w-full gap-4">
@@ -247,6 +261,12 @@ export const UploadFile: FC<UploadFileProps> = forwardRef<
           </div>
         )}
       </div>
+
+      {error && (
+        <p className="inline-flex items-center mt-1 text-xs text-red-400">
+          {error}
+        </p>
+      )}
     </div>
   );
 });

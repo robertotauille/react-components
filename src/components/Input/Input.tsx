@@ -79,7 +79,7 @@ export const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
                 "block w-full appearance-none border focus:outline-none shadow-sm focus:ring-1",
                 "transition-all duration-150 ease-in-out",
                 "p-2.5 rounded-md",
-                icon ? "pl-9" : "",
+                icon ? "!pl-9" : "",
                 colors[color],
                 error
                   ? "border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500"
